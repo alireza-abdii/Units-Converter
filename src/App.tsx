@@ -1,15 +1,18 @@
-import { UnitConverter } from "./components/UnitConverter/UnitConverter";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          تبدیل واحدها
-        </h1>
-        <UnitConverter />
-      </div>
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
 
