@@ -21,11 +21,11 @@ export const ConversionResult: React.FC = () => {
   return (
     <div className="mt-8 space-y-6">
       {result !== null && (
-        <div className="bg-white rounded-lg shadow-md p-6 animate-fade-in">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 animate-fade-in">
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
             نتیجه تبدیل
           </h3>
-          <div className="text-3xl font-bold text-blue-600">
+          <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
             {result.toFixed(6)}{" "}
             {getUnitLabel(useConverterStore.getState().toUnit)}
           </div>
@@ -33,22 +33,22 @@ export const ConversionResult: React.FC = () => {
       )}
 
       {history.length > 0 && (
-        <div className="bg-white rounded-lg shadow-md p-6 animate-slide-up">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 animate-slide-up">
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
             تاریخچه تبدیل‌ها
           </h3>
           <div className="space-y-4">
             {history.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
               >
                 <div className="flex-1">
-                  <div className="text-lg font-medium text-gray-800">
+                  <div className="text-lg font-medium text-gray-800 dark:text-white">
                     {item.inputValue} {getUnitLabel(item.fromUnit)} →{" "}
                     {item.outputValue.toFixed(6)} {getUnitLabel(item.toUnit)}
                   </div>
-                  <div className="text-sm text-gray-500 mt-1">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                     {formatDate(item.timestamp)}
                   </div>
                 </div>
@@ -61,8 +61,8 @@ export const ConversionResult: React.FC = () => {
                     }
                     className={`p-2 rounded-full transition-colors ${
                       isFavorite(item.id)
-                        ? "text-yellow-500 hover:text-yellow-600"
-                        : "text-gray-400 hover:text-gray-600"
+                        ? "text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-300"
+                        : "text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                     }`}
                     aria-label={
                       isFavorite(item.id)
@@ -86,7 +86,7 @@ export const ConversionResult: React.FC = () => {
                   </button>
                   <button
                     onClick={() => removeFromHistory(item.id)}
-                    className="p-2 text-red-500 hover:text-red-600 rounded-full transition-colors"
+                    className="p-2 text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 rounded-full transition-colors"
                     aria-label="حذف از تاریخچه"
                   >
                     <svg
