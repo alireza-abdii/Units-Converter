@@ -25,10 +25,15 @@ export const ConversionForm = () => {
     setTimeout(() => setIsSubmitting(false), 500);
   };
 
-  const unitTypes: { id: UnitType; label: string }[] = [
-    { id: "length", label: "طول" },
-    { id: "weight", label: "وزن" },
-    { id: "temperature", label: "دما" },
+  const unitTypes: { id: UnitType; label: string; icon: string }[] = [
+    { id: "length", label: "طول", icon: "📏" },
+    { id: "weight", label: "وزن", icon: "⚖️" },
+    { id: "temperature", label: "دما", icon: "🌡️" },
+    { id: "area", label: "مساحت", icon: "📐" },
+    { id: "volume", label: "حجم", icon: "📦" },
+    { id: "speed", label: "سرعت", icon: "🚀" },
+    { id: "pressure", label: "فشار", icon: "💨" },
+    { id: "power", label: "قدرت", icon: "⚡" },
   ];
 
   return (
@@ -54,8 +59,12 @@ export const ConversionForm = () => {
             aria-label="انتخاب نوع واحد"
           >
             {unitTypes.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.label}
+              <option
+                key={type.id}
+                value={type.id}
+                className="flex items-center"
+              >
+                {type.icon} {type.label}
               </option>
             ))}
           </select>

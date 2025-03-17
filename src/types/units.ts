@@ -1,4 +1,12 @@
-export type UnitType = "length" | "weight" | "temperature";
+export type UnitType =
+  | "length"
+  | "weight"
+  | "temperature"
+  | "area"
+  | "volume"
+  | "speed"
+  | "pressure"
+  | "power";
 
 export type Unit = {
   id: string;
