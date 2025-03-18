@@ -1,18 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Layout } from "./components/Layout";
-import { Home } from "./pages/Home";
-import { About } from "./pages/About";
+import React from "react";
+import { Header } from "./components/Header/Header";
+import { UnitConverter } from "./components/UnitConverter/UnitConverter";
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Header />
+      <main>
+        <UnitConverter />
+      </main>
+    </div>
   );
 }
 
