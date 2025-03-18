@@ -49,7 +49,6 @@ export const useConverterStore = create<ConverterStore>()(
         const { unitType, inputValue, fromUnit, toUnit, history } = get();
         if (!inputValue || !fromUnit || !toUnit) return;
 
-        // تبدیل ورودی متنی به عدد
         const numericValue = parseFloat(inputValue.replace(/,/g, ""));
         if (isNaN(numericValue)) return;
 
@@ -70,7 +69,6 @@ export const useConverterStore = create<ConverterStore>()(
           history: [newHistory, ...history].slice(0, 10),
         });
 
-        // Save to localStorage
         const savedHistory = JSON.parse(
           localStorage.getItem("conversionHistory") || "[]"
         );
@@ -106,7 +104,6 @@ export const useConverterStore = create<ConverterStore>()(
         const newHistory = history.filter((item) => item.id !== id);
         set({ history: newHistory });
 
-        // Update localStorage
         const savedHistory = JSON.parse(
           localStorage.getItem("conversionHistory") || "[]"
         );
@@ -118,7 +115,6 @@ export const useConverterStore = create<ConverterStore>()(
         );
       },
 
-      // Initialize from localStorage
       initialize: () => {
         const savedHistory = JSON.parse(
           localStorage.getItem("conversionHistory") || "[]"
