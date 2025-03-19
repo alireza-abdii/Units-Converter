@@ -5,15 +5,15 @@ export const Header: React.FC = () => {
   const { theme, toggleTheme } = useThemeStore();
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <header className="bg-white dark:bg-gray-800">
+      <div className="max-w-3xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             مبدل واحدها
           </h1>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300"
+            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
             aria-label={
               theme === "dark" ? "تغییر به حالت روشن" : "تغییر به حالت تاریک"
             }
