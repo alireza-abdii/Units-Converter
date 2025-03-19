@@ -23,3 +23,9 @@ export type ConversionHistory = {
   type: UnitType;
   timestamp: number;
 };
+
+export type FavoriteConversion = {
+  fromUnit: string;
+  toUnit: string;
+  unitType: UnitType;
+};

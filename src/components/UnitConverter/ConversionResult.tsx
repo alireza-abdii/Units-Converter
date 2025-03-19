@@ -1,6 +1,7 @@
 import React from "react";
 import { useConverterStore } from "../../store/converterStore";
 import { getUnitLabel } from "../../utils/unitLabels";
+import { FavoriteConversion } from "../../types/units";
 
 export const ConversionResult: React.FC = () => {
   const {
@@ -25,6 +26,15 @@ export const ConversionResult: React.FC = () => {
     (f) =>
       f.fromUnit === fromUnit && f.toUnit === toUnit && f.unitType === unitType
   );
+
+  const isHistoryItemFavorite = (item: (typeof history)[0]) => {
+    return favorites.some(
+      (f) =>
+        f.fromUnit === item.fromUnit &&
+        f.toUnit === item.toUnit &&
+        f.unitType === item.type
+    );
+  };
 
   return (
     <div className="mt-8 card">
@@ -59,7 +69,7 @@ export const ConversionResult: React.FC = () => {
         </button>
       </div>
       <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-        {result.toFixed(6)} {getUnitLabel(toUnit)}
+        {result.toFixed(6)} {getUnitLabel(toUnit, unitType)}
       </div>
 
       {history.length > 0 && (
@@ -76,8 +86,9 @@ export const ConversionResult: React.FC = () => {
                 >
                   <div className="flex-1">
                     <div className="text-lg font-medium text-gray-800 dark:text-white">
-                      {item.inputValue} {getUnitLabel(item.fromUnit)} →{" "}
-                      {item.outputValue.toFixed(6)} {getUnitLabel(item.toUnit)}
+                      {item.inputValue} {getUnitLabel(item.fromUnit, item.type)}{" "}
+                      → {item.outputValue.toFixed(6)}{" "}
+                      {getUnitLabel(item.toUnit, item.type)}
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                       {formatDate(item.timestamp)}
@@ -85,25 +96,34 @@ export const ConversionResult: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <button
-                      onClick={() =>
-                        isFavorite(item.id)
-                          ? removeFromFavorites(item.id)
-                          : addToFavorites(item.id)
-                      }
+                      onClick={() => {
+                        const favoriteItem: FavoriteConversion = {
+                          fromUnit: item.fromUnit,
+                          toUnit: item.toUnit,
+                          unitType: item.type,
+                        };
+                        if (isHistoryItemFavorite(item)) {
+                          removeFromFavorites(favoriteItem);
+                        } else {
+                          addToFavorites(favoriteItem);
+                        }
+                      }}
                       className={`p-2 rounded-full transition-colors ${
-                        isFavorite(item.id)
+                        isHistoryItemFavorite(item)
                           ? "text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-300"
                           : "text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                       }`}
                       aria-label={
-                        isFavorite(item.id)
+                        isHistoryItemFavorite(item)
                           ? "حذف از علاقه‌مندی‌ها"
                           : "افزودن به علاقه‌مندی‌ها"
                       }
                     >
                       <svg
                         className="w-5 h-5"
-                        fill={isFavorite(item.id) ? "currentColor" : "none"}
+                        fill={
+                          isHistoryItemFavorite(item) ? "currentColor" : "none"
+                        }
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >

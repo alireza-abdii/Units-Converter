@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UnitType, ConversionHistory } from "../types/units";
+import {
+  UnitType,
+  ConversionHistory,
+  FavoriteConversion,
+} from "../types/units";
 import { convert } from "../utils/conversions";
 
 interface ConverterStore {
@@ -10,14 +14,14 @@ interface ConverterStore {
   toUnit: string;
   result: number | null;
   history: ConversionHistory[];
-  favorites: string[];
+  favorites: FavoriteConversion[];
   setUnitType: (type: UnitType) => void;
   setInputValue: (value: string) => void;
   setFromUnit: (unit: string) => void;
   setToUnit: (unit: string) => void;
   convert: () => void;
-  addToFavorites: (id: string) => void;
-  removeFromFavorites: (id: string) => void;
+  addToFavorites: (conversion: FavoriteConversion) => void;
+  removeFromFavorites: (conversion: FavoriteConversion) => void;
   removeFromHistory: (id: string) => void;
   initialize: () => void;
 }
@@ -78,20 +82,33 @@ export const useConverterStore = create<ConverterStore>()(
         );
       },
 
-      addToFavorites: (id) => {
+      addToFavorites: (conversion) => {
         const { favorites } = get();
-        if (!favorites.includes(id)) {
-          set({ favorites: [...favorites, id] });
+        const isAlreadyFavorite = favorites.some(
+          (f) =>
+            f.fromUnit === conversion.fromUnit &&
+            f.toUnit === conversion.toUnit &&
+            f.unitType === conversion.unitType
+        );
+
+        if (!isAlreadyFavorite) {
+          const newFavorites = [...favorites, conversion];
+          set({ favorites: newFavorites });
           localStorage.setItem(
             "favoriteConversions",
-            JSON.stringify([...favorites, id])
+            JSON.stringify(newFavorites)
           );
         }
       },
 
-      removeFromFavorites: (id) => {
+      removeFromFavorites: (conversion) => {
         const { favorites } = get();
-        const newFavorites = favorites.filter((favId) => favId !== id);
+        const newFavorites = favorites.filter(
+          (f) =>
+            f.fromUnit !== conversion.fromUnit ||
+            f.toUnit !== conversion.toUnit ||
+            f.unitType !== conversion.unitType
+        );
         set({ favorites: newFavorites });
         localStorage.setItem(
           "favoriteConversions",
