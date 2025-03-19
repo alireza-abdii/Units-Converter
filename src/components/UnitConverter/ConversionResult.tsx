@@ -27,7 +27,7 @@ export const ConversionResult: React.FC = () => {
   );
 
   return (
-    <div className="mt-8 p-6 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600">
+    <div className="mt-8 card">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
           نتیجه تبدیل
@@ -64,7 +64,7 @@ export const ConversionResult: React.FC = () => {
 
       {history.length > 0 && (
         <div className="mt-8 space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 animate-slide-up">
+          <div className="card">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
               تاریخچه تبدیل‌ها
             </h3>

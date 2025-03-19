@@ -9,7 +9,7 @@ export const ConversionHistory: React.FC = () => {
 
   return (
     <div className="mt-8 space-y-6">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <div className="card">
         <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
           تاریخچه تبدیل‌ها
         </h3>
