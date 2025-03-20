@@ -97,6 +97,11 @@ export const useConverterStore = create<ConverterStore>()(
         );
         set({
           history: savedHistory.slice(0, 10),
+          unitType: "length",
+          inputValue: "",
+          fromUnit: "",
+          toUnit: "",
+          result: null,
         });
       },
     }),

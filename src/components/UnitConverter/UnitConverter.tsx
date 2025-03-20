@@ -1,7 +1,15 @@
+import { useEffect } from "react";
 import { ConversionForm } from "./ConversionForm";
 import { ConversionResult } from "./ConversionResult";
+import { useConverterStore } from "../../store/converterStore";
 
 export const UnitConverter = () => {
+  const initialize = useConverterStore((state) => state.initialize);
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
   return (
     <main className="container py-8">
       <div className="max-w-3xl mx-auto">

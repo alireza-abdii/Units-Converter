@@ -9,18 +9,20 @@ export const Header: React.FC = () => {
     <header className="bg-white dark:bg-gray-800 shadow-sm">
       <div className="container py-4">
         <nav className="flex items-center justify-between">
-          <Link
-            to="/"
-            className="text-xl font-bold text-gray-900 dark:text-white"
-          >
-            تبدیل واحدها
-          </Link>
-          <Link
-            to="/history"
-            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-          >
-            تاریخچه
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              className="text-xl font-bold text-gray-900 dark:text-white"
+            >
+              تبدیل واحدها
+            </Link>
+            <Link
+              to="/history"
+              className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm"
+            >
+              تاریخچه
+            </Link>
+          </div>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300"
