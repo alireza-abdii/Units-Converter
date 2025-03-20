@@ -14,22 +14,22 @@ export const ConversionHistory: React.FC = () => {
           تاریخچه تبدیل‌ها
         </h3>
         <div className="space-y-4">
-          {history.map((item, index) => (
+          {history.map((item) => (
             <div
-              key={index}
+              key={item.id}
               className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600"
             >
               <div>
                 <div className="text-lg font-medium text-gray-900 dark:text-white">
-                  {item.value} {getUnitLabel(item.fromUnit)} ={" "}
-                  {item.result.toFixed(6)} {getUnitLabel(item.toUnit)}
+                  {item.inputValue} {getUnitLabel(item.fromUnit, item.type)} ={" "}
+                  {item.outputValue.toFixed(6)} {getUnitLabel(item.toUnit, item.type)}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   {new Date(item.timestamp).toLocaleString("fa-IR")}
                 </div>
               </div>
               <button
-                onClick={() => removeFromHistory(index)}
+                onClick={() => removeFromHistory(item.id)}
                 className="p-2 text-gray-400 hover:text-red-500 transition-colors"
                 aria-label="حذف از تاریخچه"
               >
