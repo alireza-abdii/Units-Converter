@@ -1,5 +1,6 @@
 import React from "react";
 import { useThemeStore } from "../../store/themeStore";
+import { Link } from "react-router-dom";
 
 export const Header: React.FC = () => {
   const { theme, toggleTheme } = useThemeStore();
@@ -7,10 +8,16 @@ export const Header: React.FC = () => {
   return (
     <header className="bg-white dark:bg-gray-800 shadow-sm">
       <div className="container py-4">
-        <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-            مبدل واحدها
-          </h1>
+        <nav className="flex items-center justify-between">
+          <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">
+            تبدیل واحد
+          </Link>
+          <Link
+            to="/history"
+            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+          >
+            تاریخچه
+          </Link>
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300"
@@ -48,7 +55,7 @@ export const Header: React.FC = () => {
               </svg>
             )}
           </button>
-        </div>
+        </nav>
       </div>
     </header>
   );

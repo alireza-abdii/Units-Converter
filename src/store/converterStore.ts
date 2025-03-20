@@ -1,10 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import {
-  UnitType,
-  ConversionHistory,
-  FavoriteConversion,
-} from "../types/units";
+import { UnitType, ConversionHistory } from "../types/units";
 import { convert } from "../utils/conversions";
 
 interface ConverterStore {
@@ -14,14 +10,11 @@ interface ConverterStore {
   toUnit: string;
   result: number | null;
   history: ConversionHistory[];
-  favorites: FavoriteConversion[];
   setUnitType: (type: UnitType) => void;
   setInputValue: (value: string) => void;
   setFromUnit: (unit: string) => void;
   setToUnit: (unit: string) => void;
   convert: () => void;
-  addToFavorites: (conversion: FavoriteConversion) => void;
-  removeFromFavorites: (conversion: FavoriteConversion) => void;
   removeFromHistory: (id: string) => void;
   initialize: () => void;
 }
@@ -35,7 +28,6 @@ export const useConverterStore = create<ConverterStore>()(
       toUnit: "",
       result: null,
       history: [],
-      favorites: [],
 
       setUnitType: (type) =>
         set({
@@ -70,6 +62,7 @@ export const useConverterStore = create<ConverterStore>()(
 
         set({
           result,
+          inputValue: "",
           history: [newHistory, ...history].slice(0, 10),
         });
 
@@ -79,40 +72,6 @@ export const useConverterStore = create<ConverterStore>()(
         localStorage.setItem(
           "conversionHistory",
           JSON.stringify([newHistory, ...savedHistory].slice(0, 50))
-        );
-      },
-
-      addToFavorites: (conversion) => {
-        const { favorites } = get();
-        const isAlreadyFavorite = favorites.some(
-          (f) =>
-            f.fromUnit === conversion.fromUnit &&
-            f.toUnit === conversion.toUnit &&
-            f.unitType === conversion.unitType
-        );
-
-        if (!isAlreadyFavorite) {
-          const newFavorites = [...favorites, conversion];
-          set({ favorites: newFavorites });
-          localStorage.setItem(
-            "favoriteConversions",
-            JSON.stringify(newFavorites)
-          );
-        }
-      },
-
-      removeFromFavorites: (conversion) => {
-        const { favorites } = get();
-        const newFavorites = favorites.filter(
-          (f) =>
-            f.fromUnit !== conversion.fromUnit ||
-            f.toUnit !== conversion.toUnit ||
-            f.unitType !== conversion.unitType
-        );
-        set({ favorites: newFavorites });
-        localStorage.setItem(
-          "favoriteConversions",
-          JSON.stringify(newFavorites)
         );
       },
 
@@ -136,12 +95,8 @@ export const useConverterStore = create<ConverterStore>()(
         const savedHistory = JSON.parse(
           localStorage.getItem("conversionHistory") || "[]"
         );
-        const savedFavorites = JSON.parse(
-          localStorage.getItem("favoriteConversions") || "[]"
-        );
         set({
           history: savedHistory.slice(0, 10),
-          favorites: savedFavorites,
         });
       },
     }),
