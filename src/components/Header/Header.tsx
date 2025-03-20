@@ -9,8 +9,11 @@ export const Header: React.FC = () => {
     <header className="bg-white dark:bg-gray-800 shadow-sm">
       <div className="container py-4">
         <nav className="flex items-center justify-between">
-          <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">
-            تبدیل واحد
+          <Link
+            to="/"
+            className="text-xl font-bold text-gray-900 dark:text-white"
+          >
+            تبدیل واحدها
           </Link>
           <Link
             to="/history"

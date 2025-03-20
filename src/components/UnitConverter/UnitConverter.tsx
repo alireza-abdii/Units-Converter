@@ -1,17 +1,16 @@
-import React from "react";
 import { ConversionForm } from "./ConversionForm";
 import { ConversionResult } from "./ConversionResult";
-import { ConversionHistory } from "./ConversionHistory";
 
-export const UnitConverter: React.FC = () => {
+export const UnitConverter = () => {
   return (
-    <div className="card">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-        تبدیل واحدها
-      </h1>
-      <ConversionForm />
-      <ConversionResult />
-      <ConversionHistory />
-    </div>
+    <main className="container py-8">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+          تبدیل واحدها
+        </h1>
+        <ConversionForm />
+        <ConversionResult />
+      </div>
+    </main>
   );
 };
