@@ -74,7 +74,7 @@ export const ConversionForm = () => {
       <div>
         <label className="label">{t.enterValue}</label>
         <input
-          type="number"
+          type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           className="input"

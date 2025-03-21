@@ -17,6 +17,7 @@ interface ConverterStore {
   convert: () => void;
   removeFromHistory: (id: string) => void;
   initialize: () => void;
+  clearHistory: () => void;
 }
 
 export const useConverterStore = create<ConverterStore>()(
@@ -104,6 +105,8 @@ export const useConverterStore = create<ConverterStore>()(
           result: null,
         });
       },
+
+      clearHistory: () => set({ history: [] }),
     }),
     {
       name: "converter-storage",
