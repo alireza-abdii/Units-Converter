@@ -8,7 +8,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['IRANSans', 'system-ui', 'sans-serif'],
+                vazir: ["Vazir", "sans-serif"],
+                sans: ['IRANSans', 'system-ui', 'sans-serif', 'Inter', 'sans-serif'],
             },
             colors: {
                 primary: {
