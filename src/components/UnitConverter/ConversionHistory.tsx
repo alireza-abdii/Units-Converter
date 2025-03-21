@@ -1,9 +1,13 @@
 import React from "react";
 import { useConverterStore } from "../../store/converterStore";
+import { useLanguageStore } from "../../store/languageStore";
+import { translations } from "../../translations";
 import { getUnitLabel } from "../../utils/unitLabels";
 
 export const ConversionHistory: React.FC = () => {
-  const { history, removeFromHistory } = useConverterStore();
+  const { history, removeFromHistory, clearHistory } = useConverterStore();
+  const { language } = useLanguageStore();
+  const t = translations[language];
 
   if (history.length === 0) return null;
 
@@ -52,6 +56,16 @@ export const ConversionHistory: React.FC = () => {
           ))}
         </div>
       </div>
+      {history.length > 0 && (
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={clearHistory}
+            className="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
+          >
+            {t.clearHistory}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
