@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { UnitType, ConversionHistory } from "../types/units";
-import { convertUnits } from "../utils/unitConverter";
+import { convert } from "../utils/conversions";
 
 interface ConverterStore {
   unitType: UnitType;
@@ -49,7 +49,7 @@ export const useConverterStore = create<ConverterStore>()(
         const numericValue = parseFloat(inputValue.replace(/,/g, ""));
         if (isNaN(numericValue)) return;
 
-        const result = convertUnits(numericValue, fromUnit, toUnit, unitType);
+        const result = convert(numericValue, fromUnit, toUnit, unitType);
 
         const newHistory: ConversionHistory = {
           id: Date.now().toString(),

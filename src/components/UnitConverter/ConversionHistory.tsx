@@ -15,7 +15,7 @@ export const ConversionHistory: React.FC = () => {
     <div className="mt-8 space-y-6">
       <div className="card">
         <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
-          تاریخچه تبدیل‌ها
+          {t.history}
         </h3>
         <div className="space-y-4">
           {history.map((item) => (
@@ -30,13 +30,17 @@ export const ConversionHistory: React.FC = () => {
                   {getUnitLabel(item.toUnit, item.type)}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {new Date(item.timestamp).toLocaleString("fa-IR")}
+                  {new Date(item.timestamp).toLocaleString(
+                    language === "fa" ? "fa-IR" : "en-US"
+                  )}
                 </div>
               </div>
               <button
                 onClick={() => removeFromHistory(item.id)}
                 className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-                aria-label="حذف از تاریخچه"
+                aria-label={
+                  language === "fa" ? "حذف از تاریخچه" : "Remove from history"
+                }
               >
                 <svg
                   className="w-5 h-5"
