@@ -2,40 +2,42 @@ import React from "react";
 import { useThemeStore } from "../../store/themeStore";
 import { useLanguageStore } from "../../store/languageStore";
 import { Link } from "react-router-dom";
+import { translations } from "../../translations";
 
 export const Header: React.FC = () => {
   const { theme, toggleTheme } = useThemeStore();
   const { language, setLanguage } = useLanguageStore();
+  const t = translations[language];
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-sm">
+    <header className="bg-white dark:bg-slate-800 shadow-sm">
       <div className="container py-4">
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link
               to="/"
-              className="text-xl font-bold text-gray-900 dark:text-white"
+              className="text-xl font-bold text-gray-900 dark:text-slate-100"
             >
-              تبدیل واحدها
+              {t.title}
             </Link>
             <Link
               to="/history"
-              className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm"
+              className="text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-slate-100 transition-colors text-sm"
             >
-              تاریخچه
+              {t.history}
             </Link>
           </div>
           <div className="flex items-center gap-4">
             <button
               onClick={() => setLanguage(language === "fa" ? "en" : "fa")}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300"
               aria-label="Toggle language"
             >
               {language === "fa" ? "En" : "Fa"}
             </button>
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300"
               aria-label={
                 theme === "dark" ? "تغییر به حالت روشن" : "تغییر به حالت تاریک"
               }
