@@ -89,7 +89,7 @@ export const translations = {
     },
   },
   en: {
-    title: "Unit Converter",
+    title: "Units Converter",
     length: "Length",
     weight: "Weight",
     temperature: "Temperature",
