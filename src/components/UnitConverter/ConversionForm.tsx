@@ -27,14 +27,22 @@ export const ConversionForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="label">{t.unitTypes[unitType]}</label>
+        <label
+          className={`label ${language === "en" ? "text-left" : "text-right"}`}
+        >
+          {t.unitTypes[unitType]}
+        </label>
         <select
           value={unitType}
           onChange={(e) => setUnitType(e.target.value as any)}
-          className="select"
+          className={`select ${language === "en" ? "text-left" : "text-right"}`}
         >
           {Object.entries(t.unitTypes).map(([key, value]) => (
-            <option key={key} value={key}>
+            <option
+              key={key}
+              value={key}
+              className={language === "en" ? "text-left" : "text-right"}
+            >
               {value}
             </option>
           ))}
@@ -42,14 +50,22 @@ export const ConversionForm = () => {
       </div>
 
       <div>
-        <label className="label">{t.from}</label>
+        <label
+          className={`label ${language === "en" ? "text-left" : "text-right"}`}
+        >
+          {t.from}
+        </label>
         <select
           value={fromUnit}
           onChange={(e) => setFromUnit(e.target.value)}
-          className="select"
+          className={`select ${language === "en" ? "text-left" : "text-right"}`}
         >
           {Object.entries(t.units[unitType]).map(([key, value]) => (
-            <option key={key} value={key}>
+            <option
+              key={key}
+              value={key}
+              className={language === "en" ? "text-left" : "text-right"}
+            >
               {value}
             </option>
           ))}
@@ -57,14 +73,22 @@ export const ConversionForm = () => {
       </div>
 
       <div>
-        <label className="label">{t.to}</label>
+        <label
+          className={`label ${language === "en" ? "text-left" : "text-right"}`}
+        >
+          {t.to}
+        </label>
         <select
           value={toUnit}
           onChange={(e) => setToUnit(e.target.value)}
-          className="select"
+          className={`select ${language === "en" ? "text-left" : "text-right"}`}
         >
           {Object.entries(t.units[unitType]).map(([key, value]) => (
-            <option key={key} value={key}>
+            <option
+              key={key}
+              value={key}
+              className={language === "en" ? "text-left" : "text-right"}
+            >
               {value}
             </option>
           ))}
@@ -72,12 +96,16 @@ export const ConversionForm = () => {
       </div>
 
       <div>
-        <label className="label">{t.enterValue}</label>
+        <label
+          className={`label ${language === "en" ? "text-left" : "text-right"}`}
+        >
+          {t.enterValue}
+        </label>
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          className="input"
+          className={`input ${language === "en" ? "text-left" : "text-right"}`}
           placeholder={t.enterValue}
         />
       </div>

@@ -14,7 +14,11 @@ export const ConversionHistory: React.FC = () => {
   return (
     <div className="mt-8 space-y-6">
       <div className="card">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+        <h3
+          className={`text-xl font-semibold text-gray-800 dark:text-white mb-4 ${
+            language === "en" ? "text-left" : "text-right"
+          }`}
+        >
           {t.history}
         </h3>
         <div className="space-y-4">
@@ -23,13 +27,18 @@ export const ConversionHistory: React.FC = () => {
               key={item.id}
               className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600"
             >
-              <div>
+              <div
+                className={`flex-1 ${
+                  language === "en" ? "text-left" : "text-right"
+                }`}
+              >
                 <div className="text-lg font-medium text-gray-900 dark:text-white">
-                  {item.inputValue} {getUnitLabel(item.fromUnit, item.type)} ={" "}
+                  {item.inputValue}{" "}
+                  {getUnitLabel(item.fromUnit, item.type, language)} ={" "}
                   {typeof item.outputValue === "number"
                     ? item.outputValue.toFixed(6)
                     : "0.000000"}{" "}
-                  {getUnitLabel(item.toUnit, item.type)}
+                  {getUnitLabel(item.toUnit, item.type, language)}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   {new Date(item.timestamp).toLocaleString(
@@ -63,7 +72,11 @@ export const ConversionHistory: React.FC = () => {
         </div>
       </div>
       {history.length > 0 && (
-        <div className="flex justify-end mb-4">
+        <div
+          className={`flex ${
+            language === "en" ? "justify-start" : "justify-end"
+          } mb-4`}
+        >
           <button
             onClick={clearHistory}
             className="text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"

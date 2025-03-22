@@ -13,10 +13,18 @@ export const ConversionResult = () => {
   return (
     <div className="mt-8">
       <div className="card">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100 mb-4">
+        <h2
+          className={`text-xl font-bold text-gray-900 dark:text-slate-100 mb-4 ${
+            language === "en" ? "text-left" : "text-right"
+          }`}
+        >
           {t.result}
         </h2>
-        <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <div
+          className={`text-2xl font-bold text-blue-600 dark:text-blue-400 ${
+            language === "en" ? "text-left" : "text-right"
+          }`}
+        >
           {result} {t.units[unitType][toUnit]}
         </div>
       </div>

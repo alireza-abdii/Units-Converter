@@ -1,6 +1,10 @@
-import { UNITS } from "../constants/unitData";
+import { translations } from "../translations";
 import { UnitType } from "../types/units";
 
-export const getUnitLabel = (unitId: string, unitType: UnitType): string => {
-  return UNITS[unitType].find((u) => u.id === unitId)?.label || unitId;
+export const getUnitLabel = (
+  unitId: string,
+  unitType: UnitType,
+  language: "fa" | "en" = "fa"
+): string => {
+  return translations[language].units[unitType][unitId] || unitId;
 };

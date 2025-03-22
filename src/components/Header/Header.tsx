@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
   const t = translations[language];
 
   return (
-    <header className="bg-white dark:bg-slate-800 shadow-sm">
+    <header className="bg-white dark:bg-slate-800 shadow-sm" dir="rtl">
       <div className="container py-4">
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-4">
