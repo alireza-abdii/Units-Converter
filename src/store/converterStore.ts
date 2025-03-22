@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { UnitType, ConversionHistory } from "../types/units";
 import { convert } from "../utils/conversions";
+import { CONVERSION_FACTORS } from "../constants/unitData";
 
 interface ConverterStore {
   unitType: UnitType;
@@ -30,13 +31,15 @@ export const useConverterStore = create<ConverterStore>()(
       result: null,
       history: [],
 
-      setUnitType: (type) =>
+      setUnitType: (type) => {
+        const units = Object.keys(CONVERSION_FACTORS[type]);
         set({
           unitType: type,
-          fromUnit: "",
-          toUnit: "",
+          fromUnit: units[0],
+          toUnit: units[1],
           result: null,
-        }),
+        });
+      },
 
       setInputValue: (value) => set({ inputValue: value }),
       setFromUnit: (unit) => set({ fromUnit: unit }),
@@ -44,12 +47,31 @@ export const useConverterStore = create<ConverterStore>()(
 
       convert: () => {
         const { unitType, inputValue, fromUnit, toUnit, history } = get();
-        if (!inputValue || !fromUnit || !toUnit) return;
+        if (!inputValue || !fromUnit || !toUnit) {
+          console.log("Missing required values:", {
+            inputValue,
+            fromUnit,
+            toUnit,
+          });
+          return;
+        }
 
         const numericValue = parseFloat(inputValue.replace(/,/g, ""));
-        if (isNaN(numericValue)) return;
+        if (isNaN(numericValue)) {
+          console.log("Invalid input value:", inputValue);
+          return;
+        }
 
         const result = convert(numericValue, fromUnit, toUnit, unitType);
+        if (isNaN(result)) {
+          console.log("Conversion failed:", {
+            numericValue,
+            fromUnit,
+            toUnit,
+            unitType,
+          });
+          return;
+        }
 
         const newHistory: ConversionHistory = {
           id: Date.now().toString(),

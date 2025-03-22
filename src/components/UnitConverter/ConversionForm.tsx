@@ -25,7 +25,7 @@ export const ConversionForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="label">{t.unitTypes[unitType]}</label>
         <select

@@ -1,13 +1,17 @@
 import { CONVERSION_FACTORS } from "../constants/unitData";
 import { UnitType } from "../types/units";
 
+const getConversionFactor = (type: UnitType, unit: string): number => {
+  return CONVERSION_FACTORS[type][unit] || 1;
+};
+
 export const convertLength = (
   value: number,
   fromUnit: string,
   toUnit: string
 ): number => {
-  const baseValue = value * CONVERSION_FACTORS.length[fromUnit];
-  return baseValue / CONVERSION_FACTORS.length[toUnit];
+  const baseValue = value * getConversionFactor("length", fromUnit);
+  return baseValue / getConversionFactor("length", toUnit);
 };
 
 export const convertWeight = (
@@ -15,8 +19,8 @@ export const convertWeight = (
   fromUnit: string,
   toUnit: string
 ): number => {
-  const baseValue = value * CONVERSION_FACTORS.weight[fromUnit];
-  return baseValue / CONVERSION_FACTORS.weight[toUnit];
+  const baseValue = value * getConversionFactor("weight", fromUnit);
+  return baseValue / getConversionFactor("weight", toUnit);
 };
 
 export const convertArea = (
@@ -24,8 +28,8 @@ export const convertArea = (
   fromUnit: string,
   toUnit: string
 ): number => {
-  const baseValue = value * CONVERSION_FACTORS.area[fromUnit];
-  return baseValue / CONVERSION_FACTORS.area[toUnit];
+  const baseValue = value * getConversionFactor("area", fromUnit);
+  return baseValue / getConversionFactor("area", toUnit);
 };
 
 export const convertVolume = (
@@ -33,8 +37,8 @@ export const convertVolume = (
   fromUnit: string,
   toUnit: string
 ): number => {
-  const baseValue = value * CONVERSION_FACTORS.volume[fromUnit];
-  return baseValue / CONVERSION_FACTORS.volume[toUnit];
+  const baseValue = value * getConversionFactor("volume", fromUnit);
+  return baseValue / getConversionFactor("volume", toUnit);
 };
 
 export const convertSpeed = (
@@ -42,8 +46,8 @@ export const convertSpeed = (
   fromUnit: string,
   toUnit: string
 ): number => {
-  const baseValue = value * CONVERSION_FACTORS.speed[fromUnit];
-  return baseValue / CONVERSION_FACTORS.speed[toUnit];
+  const baseValue = value * getConversionFactor("speed", fromUnit);
+  return baseValue / getConversionFactor("speed", toUnit);
 };
 
 export const convertPressure = (
@@ -51,8 +55,8 @@ export const convertPressure = (
   fromUnit: string,
   toUnit: string
 ): number => {
-  const baseValue = value * CONVERSION_FACTORS.pressure[fromUnit];
-  return baseValue / CONVERSION_FACTORS.pressure[toUnit];
+  const baseValue = value * getConversionFactor("pressure", fromUnit);
+  return baseValue / getConversionFactor("pressure", toUnit);
 };
 
 export const convertPower = (
@@ -60,8 +64,8 @@ export const convertPower = (
   fromUnit: string,
   toUnit: string
 ): number => {
-  const baseValue = value * CONVERSION_FACTORS.power[fromUnit];
-  return baseValue / CONVERSION_FACTORS.power[toUnit];
+  const baseValue = value * getConversionFactor("power", fromUnit);
+  return baseValue / getConversionFactor("power", toUnit);
 };
 
 export const convertTemperature = (
@@ -82,7 +86,6 @@ export const convertTemperature = (
       celsius = value;
   }
 
-  // Convert from Celsius to target unit
   switch (toUnit) {
     case "fahrenheit":
       return (celsius * 9) / 5 + 32;
@@ -99,24 +102,10 @@ export const convert = (
   toUnit: string,
   type: UnitType
 ): number => {
-  switch (type) {
-    case "length":
-      return convertLength(value, fromUnit, toUnit);
-    case "weight":
-      return convertWeight(value, fromUnit, toUnit);
-    case "temperature":
-      return convertTemperature(value, fromUnit, toUnit);
-    case "area":
-      return convertArea(value, fromUnit, toUnit);
-    case "volume":
-      return convertVolume(value, fromUnit, toUnit);
-    case "speed":
-      return convertSpeed(value, fromUnit, toUnit);
-    case "pressure":
-      return convertPressure(value, fromUnit, toUnit);
-    case "power":
-      return convertPower(value, fromUnit, toUnit);
-    default:
-      return value;
+  if (type === "temperature") {
+    return convertTemperature(value, fromUnit, toUnit);
   }
+
+  const baseValue = value * getConversionFactor(type, fromUnit);
+  return baseValue / getConversionFactor(type, toUnit);
 };
