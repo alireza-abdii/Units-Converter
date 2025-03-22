@@ -26,7 +26,9 @@ export const ConversionHistory: React.FC = () => {
               <div>
                 <div className="text-lg font-medium text-gray-900 dark:text-white">
                   {item.inputValue} {getUnitLabel(item.fromUnit, item.type)} ={" "}
-                  {item.outputValue.toFixed(6)}{" "}
+                  {typeof item.outputValue === "number"
+                    ? item.outputValue.toFixed(6)
+                    : "0.000000"}{" "}
                   {getUnitLabel(item.toUnit, item.type)}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">

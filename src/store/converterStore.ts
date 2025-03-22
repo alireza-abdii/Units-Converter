@@ -83,18 +83,16 @@ export const useConverterStore = create<ConverterStore>()(
           timestamp: Date.now(),
         };
 
+        const updatedHistory = [newHistory, ...history].slice(0, 10);
         set({
           result,
           inputValue: "",
-          history: [newHistory, ...history].slice(0, 10),
+          history: updatedHistory,
         });
 
-        const savedHistory = JSON.parse(
-          localStorage.getItem("conversionHistory") || "[]"
-        );
         localStorage.setItem(
           "conversionHistory",
-          JSON.stringify([newHistory, ...savedHistory].slice(0, 50))
+          JSON.stringify(updatedHistory)
         );
       },
 
@@ -102,33 +100,28 @@ export const useConverterStore = create<ConverterStore>()(
         const { history } = get();
         const newHistory = history.filter((item) => item.id !== id);
         set({ history: newHistory });
-
-        const savedHistory = JSON.parse(
-          localStorage.getItem("conversionHistory") || "[]"
-        );
-        localStorage.setItem(
-          "conversionHistory",
-          JSON.stringify(
-            savedHistory.filter((item: ConversionHistory) => item.id !== id)
-          )
-        );
+        localStorage.setItem("conversionHistory", JSON.stringify(newHistory));
       },
 
       initialize: () => {
         const savedHistory = JSON.parse(
           localStorage.getItem("conversionHistory") || "[]"
         );
+        const lengthUnits = Object.keys(CONVERSION_FACTORS.length);
         set({
           history: savedHistory.slice(0, 10),
           unitType: "length",
           inputValue: "",
-          fromUnit: "",
-          toUnit: "",
+          fromUnit: lengthUnits[0],
+          toUnit: lengthUnits[1],
           result: null,
         });
       },
 
-      clearHistory: () => set({ history: [] }),
+      clearHistory: () => {
+        set({ history: [] });
+        localStorage.setItem("conversionHistory", "[]");
+      },
     }),
     {
       name: "converter-storage",
